@@ -96,3 +96,36 @@ const func = () => {}
 const func2 = () => {
     return 1
 }
+
+// 断言 as unknown
+
+type Datas = {
+    userId: number,
+    id: number,
+    title: string,
+    completed: boolean
+}
+
+async function getData() {
+    const res = await fetch('https://jsonplaceholder.typicode.com/todos/1')
+    const data = await res.json() as Datas;
+    console.log(`res: ${JSON.stringify(res)}`);
+    console.log(`data: ${data}`);
+    console.log(`formatData: ${JSON.stringify(data)}`);
+}
+
+getData();
+
+const data1: Datas = {
+    "userId": 1,
+    "id": 1,
+    "title": "delectus aut autem",
+    "completed": false
+}
+
+type Beta = {
+    name: string
+}
+
+const beta = data1 as unknown as Beta;
+
