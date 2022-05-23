@@ -98,7 +98,6 @@ const func2 = () => {
 }
 
 // 断言 as unknown
-
 type Datas = {
     userId: number,
     id: number,
@@ -129,3 +128,122 @@ type Beta = {
 
 const beta = data1 as unknown as Beta;
 
+// class
+// private 私有，符号 #
+// public 公开
+// protected 受保护
+
+class Live {
+    roomName: string
+    private id: string
+    protected name: string
+
+    constructor(roomName: string, id: string, name: string) {
+        this.roomName = roomName
+        this.id = id
+        this.name = name
+    }
+}
+
+class CarLive extends Live {
+    sex: string
+
+    constructor(roomName: string, id: string, name: string, sex: string) {
+        super(roomName, id, name)
+        this.sex = sex
+    }
+    start() {
+        super.name
+    }
+}
+
+let live = new CarLive('No.1', '000001', 'Season', 'male');
+
+console.log(`live: ${live}`);
+
+// 使用类的技巧
+interface CarProps {
+    name: string
+    age: number
+    start: () => void
+}
+
+class Car implements CarProps {
+    name: string
+    age: number
+
+    constructor(name: string, age: number) {
+        this.name = name
+        this.age = age
+    }
+    start() {}
+}
+
+// 泛型
+function print<T>(data: T) {
+    console.log(`data: ${data}`);
+}
+
+print<number>(999)
+print<string>('Season')
+
+// 类也可以用泛型
+class Print<T> {
+    data: T
+    constructor(d: T) {
+        this.data = d
+    }
+}
+
+const p = new Print<number>(666)
+const p1 = new Print<string>('Spring')
+console.log(`data: ${p.data}`);
+console.log(`data: ${p1.data}`);
+
+// Utility
+// Record
+interface CatInfo {
+    age: number;
+    breed: string;
+}
+
+type CatName = "miffy" | "boris" | "mordred";
+
+const cats: Record<CatName, CatInfo> = {
+    miffy: { age: 10, breed: "Persian" },
+    boris: { age: 5, breed: "Maine Coon" },
+    mordred: { age: 16, breed: "British Shorthair" },
+};
+
+cats.boris;
+
+// Pick
+interface Todo {
+    title: string;
+    description: string;
+    completed: boolean;
+}
+
+type TodoPreview = Pick<Todo, "title" | "completed">;
+
+const todo1: TodoPreview = {
+    title: "Clean room",
+    completed: false,
+};
+
+
+// Omit
+interface Todo {
+    title: string;
+    description: string;
+    completed: boolean;
+    createdAt: number;
+}
+
+type TodoPreview2 = Omit<Todo, "description">;
+
+const todo2: TodoPreview2 = {
+    title: "Clean room",
+    completed: false,
+    createdAt: 1615544252770,
+};
